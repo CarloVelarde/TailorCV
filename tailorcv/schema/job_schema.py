@@ -2,6 +2,9 @@
 
 from pydantic import BaseModel
 class Job(BaseModel):
-    title: str
-    keywords: list[str]
+    """
+    Representation of a job posting
+    """
     raw_text: str
+    cleaned_text: str
+    keywords: list[str]
