@@ -1,0 +1,212 @@
+# =========================
+# Programming Languages
+# =========================
+python
+java
+javascript
+typescript
+go
+golang
+c
+c++
+c#
+rust
+ruby
+kotlin
+swift
+scala
+bash
+shell
+powershell
+
+# =========================
+# Web / Frontend
+# =========================
+html
+css
+react
+react native
+angular
+vue
+next.js
+node.js
+express
+frontend
+ui
+ux
+
+# =========================
+# Backend / APIs
+# =========================
+backend
+api
+apis
+rest
+restful
+graphql
+grpc
+microservices
+monolith
+service-oriented
+event-driven
+
+# =========================
+# Frameworks
+# =========================
+django
+flask
+fastapi
+spring
+spring boot
+rails
+dotnet
+.net
+
+# =========================
+# Databases / Storage
+# =========================
+sql
+nosql
+mysql
+postgresql
+postgres
+mongodb
+redis
+dynamodb
+cassandra
+elasticsearch
+data modeling
+schema design
+
+# =========================
+# Cloud / DevOps
+# =========================
+aws
+amazon web services
+azure
+gcp
+google cloud
+cloud
+docker
+kubernetes
+k8s
+terraform
+ansible
+ci
+cd
+ci/cd
+jenkins
+github actions
+gitlab ci
+devops
+infrastructure as code
+
+# =========================
+# Operating Systems
+# =========================
+linux
+unix
+windows
+macos
+
+# =========================
+# Testing / Quality
+# =========================
+testing
+unit testing
+integration testing
+end-to-end testing
+regression testing
+behavior driven development
+bdd
+e2e
+pytest
+jest
+mocha
+jasmine
+cypress
+selenium
+tdd
+
+# =========================
+# Data / Distributed Systems
+# =========================
+distributed systems
+scalability
+high availability
+fault tolerance
+load balancing
+concurrency
+parallelism
+multithreading
+latency
+throughput
+
+# =========================
+# Messaging / Streaming
+# =========================
+kafka
+rabbitmq
+pubsub
+event streaming
+message queue
+
+# =========================
+# Mobile
+# =========================
+android
+ios
+flutter
+react native
+mobile development
+
+# =========================
+# Embedded / Systems
+# =========================
+embedded systems
+firmware
+hardware
+low-level
+operating systems
+device drivers
+
+# =========================
+# ML / Data (lightweight)
+# =========================
+machine learning
+ml
+artificial intelligence
+ai
+data science
+data analysis
+
+# =========================
+# Software Engineering Fundamentals
+# =========================
+data structures
+algorithms
+object-oriented
+oop
+design patterns
+system design
+software architecture
+clean code
+
+# =========================
+# Version Control / Collaboration
+# =========================
+git
+github
+gitlab
+bitbucket
+pull requests
+code review
+
+# =========================
+# Agile / Process
+# =========================
+agile
+scrum
+kanban
+jira
+sprint

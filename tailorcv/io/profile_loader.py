@@ -1,5 +1,4 @@
-# io/profile_loader.py
-
+# Loads profile yaml file and converts to profile object
 from pathlib import Path
 import yaml
 from tailorcv.schema.profile_schema import Profile
