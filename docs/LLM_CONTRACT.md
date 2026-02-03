@@ -8,8 +8,11 @@ TailorCV converts the structured output into RenderCV YAML and validates it.
 
 Source of truth
 ---------------
-The contract is defined in `tailorcv/llm/selection_schema.py` and should be
-kept in sync with this document.
+The contract is defined in `tailorcv/llm/selection_schema.py` and should be kept in sync with this document.
+
+Rewriting guidance
+------------------
+Profile bullet points are source material, not hard limits. The LLM is expected to reword, reorganize, and infer improved bullets based on the profile context and job description. Use `bullet_overrides` to provide the rewritten bullets.
 
 Output format
 -------------

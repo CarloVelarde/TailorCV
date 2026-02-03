@@ -5,7 +5,7 @@ Now (MVP)
 ---------
 - Load and validate profile.yaml.
 - Parse job.txt and extract keywords.
-- Collect LLM selection output (JSON).
+- Collect LLM selection output (JSON) with optional rewritten bullets.
 - Build RenderCV YAML deterministically.
 - Validate with RenderCV official models.
 
