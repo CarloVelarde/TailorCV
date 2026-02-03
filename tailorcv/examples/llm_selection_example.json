@@ -1,0 +1,27 @@
+{
+  "selected_experience_ids": [
+    "mastercard_intern"
+  ],
+  "selected_project_ids": [
+    "git_commit_rewriter"
+  ],
+  "selected_education_ids": [
+    "uiowa_cs"
+  ],
+  "selected_skill_labels": [
+    "Languages",
+    "Frameworks"
+  ],
+  "bullet_overrides": {
+    "mastercard_intern": [
+      "Built Python backend services for network gateway tooling.",
+      "Collaborated with senior engineers on production systems."
+    ]
+  },
+  "section_order": [
+    "Experience",
+    "Projects",
+    "Education",
+    "Skills"
+  ]
+}

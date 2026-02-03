@@ -56,7 +56,7 @@ See `tailorcv/validators/rendercv_validator.py`.
 Manual smoke test
 -----------------
 Run the debug script to validate the current flow (job loader, profile loader,
-and RenderCV validation):
+LLM selection plan, and RenderCV validation):
 
 ```bash
 python -m tailorcv.debug
@@ -66,7 +66,9 @@ Override inputs or skip steps:
 
 ```bash
 python -m tailorcv.debug --job path/to/job.txt --profile path/to/profile.yaml --rendercv path/to/cv.yaml
+python -m tailorcv.debug --selection path/to/selection.json
 python -m tailorcv.debug --skip-rendercv
+python -m tailorcv.debug --skip-selection
 ```
 
 Repository layout
@@ -83,3 +85,4 @@ Docs
 - `docs/ARCHITECTURE.md`: Data flow and module roles.
 - `docs/LLM_CONTRACT.md`: LLM JSON output contract.
 - `docs/ROADMAP.md`: MVP and next steps.
+- `docs/STYLEGUIDE.md`: Formatting, naming, and docstring conventions.

@@ -7,7 +7,7 @@ This file summarizes expectations for contributors and agents working on this re
 
 CI
 --
-- Run Ruff to format and lint code.
+- R Run `ruff check .` and `ruff format --check .` to lint and format code.
 - CI should fail if Ruff formatting or linting fails.
 
 Project context

@@ -1,4 +1,5 @@
 """Profile loader for profile.yaml inputs."""
+
 from pathlib import Path
 
 import yaml

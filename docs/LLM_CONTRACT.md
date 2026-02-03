@@ -6,6 +6,11 @@ Goal
 The LLM selects and optionally rewrites profile content. It does not emit YAML.
 TailorCV converts the structured output into RenderCV YAML and validates it.
 
+Source of truth
+---------------
+The contract is defined in `tailorcv/llm/selection_schema.py` and should be
+kept in sync with this document.
+
 Output format
 -------------
 The LLM must return JSON with the following shape:
@@ -33,3 +38,7 @@ Notes
 - If `bullet_overrides` is omitted for an entry, TailorCV uses the original
   highlights from the profile.
 - The app will enforce output structure and fail fast on invalid JSON.
+
+Example
+-------
+See `tailorcv/examples/llm_selection_example.json`.
