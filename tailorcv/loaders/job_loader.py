@@ -323,9 +323,7 @@ def _find_lexicon_hits(text_lower: str, lexicon_terms: list[str]) -> list[str]:
 
         # Single tokens: use a boundary-ish regex that still allows C++, C#, node.js, etc.
         # We avoid \b because '.' '+' '#' break word boundaries.
-        pattern = re.compile(
-            rf"(?<![a-z0-9]){re.escape(term)}(?![a-z0-9])", re.IGNORECASE
-        )
+        pattern = re.compile(rf"(?<![a-z0-9]){re.escape(term)}(?![a-z0-9])", re.IGNORECASE)
         m = pattern.search(text_lower)
         if m:
             hits.append((m.start(), term))

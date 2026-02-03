@@ -1,8 +1,8 @@
-from typing import List
+from typing import List, Optional
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 class BaseItem(BaseModel):
-    id: str
-    tags: List[str] = []
+    id: Optional[str] = None
+    tags: List[str] = Field(default_factory=list)

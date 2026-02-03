@@ -1,6 +1,6 @@
 from typing import List, Optional
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 from .models.education import Education
 from .models.experience import Experience
@@ -20,14 +20,14 @@ class Meta(BaseModel):
     email: str
     phone: Optional[str] = None
     website: Optional[str] = None
-    socials: List[Social] = []
+    socials: List[Social] = Field(default_factory=list)
 
 
 class Profile(BaseModel):
     meta: Meta
-    education: List[Education] = []
-    experience: List[Experience] = []
-    projects: List[Project] = []
-    skills: List[SkillEntry] = []
-    certifications: List[str] = []
-    interests: List[str] = []
+    education: List[Education] = Field(default_factory=list)
+    experience: List[Experience] = Field(default_factory=list)
+    projects: List[Project] = Field(default_factory=list)
+    skills: List[SkillEntry] = Field(default_factory=list)
+    certifications: List[str] = Field(default_factory=list)
+    interests: List[str] = Field(default_factory=list)
