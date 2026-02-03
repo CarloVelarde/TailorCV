@@ -1,9 +1,13 @@
+"""Education entry schema for profile.yaml."""
+
 from typing import List, Optional
 
 from pydantic import BaseModel, Field
 
 
 class Education(BaseModel):
+    """Education entry with optional dates and highlights."""
+
     id: Optional[str] = None
     institution: str
     area: str

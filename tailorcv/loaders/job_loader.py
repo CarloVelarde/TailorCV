@@ -1,13 +1,17 @@
+"""Job description loader and keyword extractor."""
+
 from __future__ import annotations
 
 import re
 from collections import Counter
 from pathlib import Path
 
-from schema.job_schema import Job
+from tailorcv.schema.job_schema import Job
 
 
 class JobLoadError(Exception):
+    """Raised when a job description cannot be loaded or parsed."""
+
     pass
 
 
@@ -117,10 +121,18 @@ def load_job(
     max_keywords: int = 50,
 ) -> Job:
     """
-    Load a job posting from a .txt file, clean it, and extract keywords.
+    Load a job posting from a text file, clean it, and extract keywords.
 
-    - lexicon_path (optional): path to a newline-delimited list of tech terms/phrases.
-      If None, uses "resources/tech_lexicon.txt" relative to project root (best effort).
+    :param job_path: Path to the job description text file.
+    :type job_path: str | pathlib.Path
+    :param lexicon_path: Optional path to a newline-delimited lexicon file.
+        If omitted, the loader will try a default in ``resources/tech_lexicon.txt``.
+    :type lexicon_path: str | pathlib.Path | None
+    :param max_keywords: Maximum number of keywords to return.
+    :type max_keywords: int
+    :return: Parsed job content with cleaned text and extracted keywords.
+    :rtype: tailorcv.schema.job_schema.Job
+    :raises JobLoadError: If the file does not exist or cannot be read.
     """
     job_path = Path(job_path)
     if not job_path.exists():
@@ -154,11 +166,15 @@ def load_job(
 
 def _clean_text(text: str) -> str:
     """
-    Conservative cleaner:
-    - removes obvious UI/footer/legal lines
-    - removes emails/urls (they create junk tokens)
-    - normalizes whitespace
-    - keeps the bulk of content (we do NOT attempt “section parsing”)
+    Clean and normalize job text without heavy structure assumptions.
+
+    The cleaner removes obvious UI/footer/legal lines, strips emails and URLs,
+    and normalizes whitespace while preserving the core content.
+
+    :param text: Raw job description text.
+    :type text: str
+    :return: Cleaned, single-line text suitable for tokenization.
+    :rtype: str
     """
     # Remove invisible/control-ish whitespace that can break tokenization
     text = text.replace("\u200b", " ").replace("\ufeff", " ")
@@ -199,12 +215,17 @@ def _clean_text(text: str) -> str:
 
 def _load_lexicon(lexicon_path: str | Path | None) -> list[str]:
     """
-    Loads lexicon terms from a newline delimited .txt file
+    Load lexicon terms from a newline-delimited text file.
 
-    Format:
-      - one term per line
-      - supports phrases (e.g., "machine learning")
-      - supports comments with "#"
+    Format rules:
+    - one term per line
+    - phrases allowed (e.g., "machine learning")
+    - comments allowed with "#"
+
+    :param lexicon_path: Optional path to a lexicon file.
+    :type lexicon_path: str | pathlib.Path | None
+    :return: Normalized lexicon terms.
+    :rtype: list[str]
     """
     candidate_paths: list[Path] = []
 
@@ -244,6 +265,14 @@ def _load_lexicon(lexicon_path: str | Path | None) -> list[str]:
 
 
 def _norm_term(term: str) -> str:
+    """
+    Normalize a lexicon term for comparison.
+
+    :param term: Raw lexicon term.
+    :type term: str
+    :return: Normalized term.
+    :rtype: str
+    """
     return re.sub(r"\s+", " ", term.strip().lower())
 
 
@@ -259,11 +288,20 @@ def _extract_keywords(
     max_keywords: int,
 ) -> list[str]:
     """
-    Combine:
-      1) lexicon matches (high-signal, even if mentioned once)
-      2) frequency-derived tokens (discovery for unknown tech)
+    Extract prioritized keywords from cleaned text.
 
-    Returns unique keywords in priority order.
+    The strategy combines:
+    1) lexicon matches (high-signal, even when mentioned once)
+    2) frequency-derived tokens (discovery for unknown terms)
+
+    :param cleaned_text: Cleaned job description text.
+    :type cleaned_text: str
+    :param lexicon_terms: Normalized lexicon terms.
+    :type lexicon_terms: list[str]
+    :param max_keywords: Maximum number of keywords to return.
+    :type max_keywords: int
+    :return: Unique keywords in priority order.
+    :rtype: list[str]
     """
     text_lower = cleaned_text.lower()
 
@@ -298,12 +336,17 @@ def _extract_keywords(
 
 def _find_lexicon_hits(text_lower: str, lexicon_terms: list[str]) -> list[str]:
     """
-    Finds lexicon terms in the text (best-effort, safe).
-    We do:
-      - exact substring checks for phrases (fast)
-      - boundary-ish regex for short single tokens where substring would be too loose
+    Find lexicon terms in the text (best-effort, safe).
 
-    Note: We don't try to extract variants (AI can normalize later).
+    This uses substring checks for phrases and boundary-aware matching for
+    single tokens. It does not attempt variant expansion.
+
+    :param text_lower: Lowercased cleaned job text.
+    :type text_lower: str
+    :param lexicon_terms: Normalized lexicon terms.
+    :type lexicon_terms: list[str]
+    :return: Lexicon hits in order of first appearance.
+    :rtype: list[str]
     """
     if not lexicon_terms:
         return []
@@ -335,8 +378,17 @@ def _find_lexicon_hits(text_lower: str, lexicon_terms: list[str]) -> list[str]:
 
 def _frequency_keywords(text_lower: str, max_candidates: int = 80) -> list[str]:
     """
-    Frequency-based discovery for terms not in lexicon.
-    Aggressive junk filtering, but tries not to drop real tech.
+    Extract frequent tokens not captured by the lexicon.
+
+    Aggressive junk filtering is applied while attempting to preserve
+    genuine technical terms.
+
+    :param text_lower: Lowercased cleaned job text.
+    :type text_lower: str
+    :param max_candidates: Maximum number of candidate tokens to consider.
+    :type max_candidates: int
+    :return: Candidate keywords by frequency.
+    :rtype: list[str]
     """
     raw_tokens = _TOKEN_RE.findall(text_lower)
 

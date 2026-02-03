@@ -1,4 +1,4 @@
-# Loads profile yaml file and converts to profile object
+"""Profile loader for profile.yaml inputs."""
 from pathlib import Path
 
 import yaml
@@ -16,11 +16,11 @@ def load_profile(profile_path: str | Path) -> Profile:
     """
     Load and validate a profile.yaml file.
 
-    Args:
-        profile_path: Path to profile.yaml
-
-    Returns:
-        Profile: validated Profile object
+    :param profile_path: Path to the profile.yaml file.
+    :type profile_path: str | pathlib.Path
+    :return: Validated profile object.
+    :rtype: tailorcv.schema.profile_schema.Profile
+    :raises ProfileLoadError: If the file cannot be read or fails validation.
     """
     profile_path = Path(profile_path)
 

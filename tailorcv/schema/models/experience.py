@@ -1,9 +1,13 @@
+"""Experience entry schema for profile.yaml."""
+
 from typing import List, Optional
 
 from pydantic import BaseModel, Field
 
 
 class Experience(BaseModel):
+    """Experience entry with optional dates and highlights."""
+
     id: Optional[str] = None
     company: str
     position: str

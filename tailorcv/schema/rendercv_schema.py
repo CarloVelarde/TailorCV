@@ -1,3 +1,5 @@
+"""Thin internal schema that mirrors RenderCV entry structures."""
+
 from __future__ import annotations
 
 from typing import Any, Dict, List, Optional, Union
@@ -160,7 +162,14 @@ Entry = Union[
 
 
 def _classify_entry(e: Entry) -> str:
-    """Return a stable entry-type label for enforcing per-section type uniformity."""
+    """
+    Return a stable entry-type label for enforcing per-section type uniformity.
+
+    :param e: RenderCV entry to classify.
+    :type e: Entry
+    :return: Entry type label.
+    :rtype: str
+    """
     if isinstance(e, str):
         return "TextEntry"
     if isinstance(e, EducationEntry):
@@ -185,7 +194,15 @@ def _classify_entry(e: Entry) -> str:
 def _enforce_one_type_per_section(
     sections: Dict[str, List[Entry]],
 ) -> Dict[str, List[Entry]]:
-    """RenderCV rule: each section must contain only one entry type."""
+    """
+    Enforce the RenderCV rule that each section contains one entry type.
+
+    :param sections: Mapping of section titles to entry lists.
+    :type sections: dict[str, list[Entry]]
+    :return: Validated sections mapping.
+    :rtype: dict[str, list[Entry]]
+    :raises ValueError: If a section mixes multiple entry types.
+    """
     for title, entries in sections.items():
         if not entries:
             continue

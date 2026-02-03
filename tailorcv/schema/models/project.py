@@ -1,9 +1,13 @@
+"""Project entry schema for profile.yaml."""
+
 from typing import List, Optional
 
 from pydantic import BaseModel, Field
 
 
 class Project(BaseModel):
+    """Project entry with optional dates and highlights."""
+
     id: Optional[str] = None
     name: str
     summary: Optional[str] = None
