@@ -1,14 +1,17 @@
-from pydantic import BaseModel
 from typing import List, Optional
+
+from pydantic import BaseModel
 
 from .models.education import Education
 from .models.experience import Experience
 from .models.project import Project
 from .models.skillentry import SkillEntry
 
+
 class Social(BaseModel):
     network: str
     username: str
+
 
 class Meta(BaseModel):
     name: str
@@ -18,6 +21,7 @@ class Meta(BaseModel):
     phone: Optional[str] = None
     website: Optional[str] = None
     socials: List[Social] = []
+
 
 class Profile(BaseModel):
     meta: Meta

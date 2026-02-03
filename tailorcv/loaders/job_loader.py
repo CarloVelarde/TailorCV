@@ -1,9 +1,8 @@
 from __future__ import annotations
 
-from pathlib import Path
 import re
 from collections import Counter
-from typing import Iterable
+from pathlib import Path
 
 from schema.job_schema import Job
 
@@ -146,6 +145,7 @@ def load_job(
         cleaned_text=cleaned_text,
         keywords=keywords,
     )
+
 
 # -------------------------
 # Cleaning

@@ -20,6 +20,7 @@ rendercv-fonts==0.5.1
 rich==14.2.0
 ruamel.yaml==0.18.17
 ruamel.yaml.clib==0.2.15
+ruff==0.14.14
 setuptools==80.9.0
 shellingham==1.5.4
 typer==0.21.0
