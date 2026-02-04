@@ -45,6 +45,16 @@ make format
 make format-check
 ```
 
+Pytest config
+-------------
+Pytest uses `pyproject.toml` for configuration:
+
+```
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"
+```
+
 Guidelines
 ----------
 - Use `tmp_path` for filesystem output.

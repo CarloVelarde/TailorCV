@@ -1,4 +1,4 @@
-Test Plan (Temporary)
+Test Plan (Completed)
 =====================
 
 Purpose
@@ -8,7 +8,7 @@ and focused on meaningful failures.
 
 Issue List (Phase 1)
 --------------------
-TEST-001: Profile loader happy + bad path
+TEST-001: Profile loader happy + bad path (implemented)
 -----------------------------------------
 - Scope: `tailorcv/loaders/profile_loader.py`
 - Fixtures: `fixtures/profile_valid.yaml`, `fixtures/profile_invalid.yaml`
@@ -19,7 +19,7 @@ TEST-001: Profile loader happy + bad path
   - Valid profile: `meta.name` is set.
   - Invalid profile: exception message mentions schema validation.
 
-TEST-002: Job loader keyword extraction baseline
+TEST-002: Job loader keyword extraction baseline (implemented)
 ------------------------------------------------
 - Scope: `tailorcv/loaders/job_loader.py`
 - Fixtures: `fixtures/job_min.txt`
@@ -28,7 +28,7 @@ TEST-002: Job loader keyword extraction baseline
   2) Assert at least one lexicon term appears in keywords.
 - Edge case: noisy text with emails/URLs should not raise.
 
-TEST-003: Selection validator unknown IDs
+TEST-003: Selection validator unknown IDs (implemented)
 -----------------------------------------
 - Scope: `tailorcv/validators/selection_validator.py`
 - Fixtures: `fixtures/selection_invalid_id.json`, `fixtures/profile_valid.yaml`
@@ -37,7 +37,7 @@ TEST-003: Selection validator unknown IDs
 - Assertions:
   - Error list includes unknown ID message.
 
-TEST-004: Selection validator empty resume
+TEST-004: Selection validator empty resume (implemented)
 ------------------------------------------
 - Scope: `tailorcv/validators/selection_validator.py`
 - Fixtures: `fixtures/selection_empty.json`, `fixtures/profile_empty.yaml`
