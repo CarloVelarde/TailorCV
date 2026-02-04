@@ -36,6 +36,15 @@ Run a subset:
 pytest tests/test_loaders.py tests/test_selection_validator.py
 ```
 
+Makefile shortcuts
+------------------
+```
+make test
+make lint
+make format
+make format-check
+```
+
 Guidelines
 ----------
 - Use `tmp_path` for filesystem output.

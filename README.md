@@ -137,6 +137,17 @@ Run a subset:
 pytest tests/test_loaders.py tests/test_selection_validator.py
 ```
 
+Makefile shortcuts
+------------------
+```
+make lint
+make format
+make format-check
+make test
+make debug
+make generate
+```
+
 Repository layout
 -----------------
 - `tailorcv/defaults/`: One-page-biased defaults for design/locale/settings.
