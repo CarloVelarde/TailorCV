@@ -6,8 +6,9 @@ Data flow
 1) Load profile.yaml -> Profile model
 2) Load job.txt -> Job model (cleaned text + keywords)
 3) LLM selection -> JSON selection plan
-4) Deterministic mapper -> RenderCV `cv` dictionary
-5) RenderCV validation -> RenderCVModel
+4) Strict selection validation -> profile + plan consistency
+5) Deterministic mapper -> RenderCV `cv` dictionary
+6) RenderCV validation -> RenderCVModel
 
 Optional inputs
 ---------------

@@ -11,6 +11,10 @@ from tailorcv.loaders.job_loader import load_job
 from tailorcv.loaders.profile_loader import load_profile
 from tailorcv.mappers.rendercv_mapper import build_cv_dict
 from tailorcv.validators.rendercv_validator import validate_rendercv_document
+from tailorcv.validators.selection_validator import (
+    SelectionValidationFailure,
+    validate_selection_against_profile,
+)
 
 
 def _print_job_summary(job_path: Path) -> None:
@@ -114,6 +118,28 @@ def _print_selection_summary(selection_path: Path) -> None:
     print(f"Section order:  {len(plan.section_order)}")
 
 
+def _validate_selection_plan(profile_path: Path, selection_path: Path) -> None:
+    """
+    Validate a selection plan strictly against the profile.
+
+    :param profile_path: Path to a profile.yaml file.
+    :type profile_path: pathlib.Path
+    :param selection_path: Path to a selection JSON file.
+    :type selection_path: pathlib.Path
+    :return: None.
+    :rtype: None
+    :raises SelectionValidationFailure: If strict validation fails.
+    """
+    profile = load_profile(profile_path)
+    plan = load_selection_plan(selection_path)
+    validate_selection_against_profile(profile, plan, strict=True)
+
+    print("\n" + "=" * 80)
+    print("SELECTION VALIDATION OUTPUT")
+    print("=" * 80)
+    print("\nSelection validation passed.")
+
+
 def _print_mapper_preview(profile_path: Path, selection_path: Path) -> None:
     """
     Build a RenderCV cv dict and print a brief summary of sections.
@@ -198,6 +224,11 @@ def main() -> int:
         action="store_true",
         help="Skip mapper preview output.",
     )
+    parser.add_argument(
+        "--skip-selection-validation",
+        action="store_true",
+        help="Skip strict selection validation output.",
+    )
     args = parser.parse_args()
 
     try:
@@ -207,6 +238,8 @@ def main() -> int:
             _print_profile_summary(args.profile)
         if not args.skip_selection:
             _print_selection_summary(args.selection)
+        if not args.skip_selection_validation:
+            _validate_selection_plan(args.profile, args.selection)
         if not args.skip_mapper:
             _print_mapper_preview(args.profile, args.selection)
         if not args.skip_rendercv:
@@ -220,6 +253,11 @@ def main() -> int:
         return 1
     except SelectionLoadError as exc:
         print(f"\nSelection validation failed: {exc}")
+        return 1
+    except SelectionValidationFailure as exc:
+        print("\nSelection validation failed:")
+        for error in exc.errors:
+            print(f"- {error.message}")
         return 1
     except Exception as exc:  # pragma: no cover - debug only
         print(f"\nError: {exc}")

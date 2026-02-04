@@ -14,6 +14,11 @@ Rewriting guidance
 ------------------
 Profile bullet points are source material, not hard limits. The LLM is expected to reword, reorganize, and infer improved bullets based on the profile context and job description. Use `bullet_overrides` to provide the rewritten bullets.
 
+Strict validation
+-----------------
+Selection output is strictly validated against the profile before mapping. Any
+unknown IDs or labels will fail validation and must be corrected by the LLM.
+
 Output format
 -------------
 The LLM must return JSON with the following shape:
