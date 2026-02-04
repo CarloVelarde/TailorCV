@@ -101,6 +101,9 @@ python -m tailorcv generate \
   --out path/to/output_dir
 ```
 
+Note: `--selection` is required for the current MVP. This will become optional
+once LLM selection generation is integrated.
+
 Optional overrides:
 
 ```bash

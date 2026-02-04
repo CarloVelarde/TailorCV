@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from tailorcv.cli import main
+from tailorcv.cli import app
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    app()

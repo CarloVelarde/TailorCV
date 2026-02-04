@@ -47,5 +47,6 @@ Mapping and assembly
 
 CLI generation
 --------------
-- CLI expects a selection JSON file for MVP.
+- CLI expects a selection JSON file for MVP (temporary).
 - LLM integration and retry loop will live in the CLI layer.
+- CLI is Typer-based for modern UX and consistency with RenderCV.

@@ -1,38 +1,17 @@
-"""CLI router for TailorCV commands."""
+"""CLI app for TailorCV commands."""
 
 from __future__ import annotations
 
-import argparse
+import typer
 
-from tailorcv.cli.generate import main as generate_main
-from tailorcv.debug import main as debug_main
+from tailorcv.cli.debug import debug
+from tailorcv.cli.generate import generate
 
+app = typer.Typer(
+    add_completion=False,
+    no_args_is_help=True,
+    help="TailorCV CLI for generating RenderCV YAML.",
+)
 
-def main(argv: list[str] | None = None) -> int:
-    """
-    Entry point for the TailorCV CLI.
-
-    :param argv: Optional argument list for CLI parsing.
-    :type argv: list[str] | None
-    :return: Exit status (0 for success, 1 for failure).
-    :rtype: int
-    """
-    parser = argparse.ArgumentParser(prog="tailorcv")
-    subparsers = parser.add_subparsers(dest="command", required=True)
-
-    subparsers.add_parser(
-        "generate",
-        help="Generate RenderCV YAML from profile, job, and selection inputs.",
-    )
-    subparsers.add_parser(
-        "debug",
-        help="Run the TailorCV smoke test pipeline.",
-    )
-
-    parsed, remaining = parser.parse_known_args(argv)
-
-    if parsed.command == "generate":
-        return generate_main(remaining)
-    if parsed.command == "debug":
-        return debug_main(remaining)
-    return 1
+app.command()(generate)
+app.command()(debug)

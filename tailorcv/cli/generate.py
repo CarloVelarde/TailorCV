@@ -1,12 +1,12 @@
-"""CLI entrypoint for generating RenderCV YAML from profile + job + selection."""
+"""CLI command for generating RenderCV YAML from profile + job + selection."""
 
 from __future__ import annotations
 
-import argparse
 from pathlib import Path
 from typing import Any, Mapping
 
 import ruamel.yaml
+import typer
 from rendercv.exception import RenderCVUserValidationError
 from rendercv.schema.yaml_reader import read_yaml
 
@@ -26,85 +26,105 @@ class GenerateError(ValueError):
     """Raised when CLI generation fails."""
 
 
-def main(argv: list[str] | None = None) -> int:
+def generate(
+    profile: Path = typer.Option(
+        ...,
+        exists=True,
+        dir_okay=False,
+        readable=True,
+        help="Path to profile.yaml.",
+    ),
+    job: Path = typer.Option(
+        ...,
+        exists=True,
+        dir_okay=False,
+        readable=True,
+        help="Path to job.txt.",
+    ),
+    selection: Path = typer.Option(
+        ...,
+        exists=True,
+        dir_okay=False,
+        readable=True,
+        help="Path to selection JSON (MVP/testing; LLM will replace).",
+    ),
+    out: Path = typer.Option(
+        ...,
+        help="Output file path or directory for the RenderCV YAML file.",
+    ),
+    design: Path | None = typer.Option(
+        None,
+        exists=True,
+        dir_okay=False,
+        readable=True,
+        help="Optional design override YAML file.",
+    ),
+    locale: Path | None = typer.Option(
+        None,
+        exists=True,
+        dir_okay=False,
+        readable=True,
+        help="Optional locale override YAML file.",
+    ),
+    settings: Path | None = typer.Option(
+        None,
+        exists=True,
+        dir_okay=False,
+        readable=True,
+        help="Optional settings override YAML file.",
+    ),
+) -> None:
     """
     Generate a RenderCV YAML file from profile, job, and selection inputs.
 
-    :param argv: Optional argument list for CLI parsing.
-    :type argv: list[str] | None
-    :return: Exit status (0 for success, 1 for failure).
-    :rtype: int
+    :param profile: Path to profile.yaml.
+    :type profile: pathlib.Path
+    :param job: Path to job.txt.
+    :type job: pathlib.Path
+    :param selection: Path to selection JSON file.
+    :type selection: pathlib.Path
+    :param out: Output file path or directory.
+    :type out: pathlib.Path
+    :param design: Optional design override YAML file.
+    :type design: pathlib.Path | None
+    :param locale: Optional locale override YAML file.
+    :type locale: pathlib.Path | None
+    :param settings: Optional settings override YAML file.
+    :type settings: pathlib.Path | None
+    :return: None.
+    :rtype: None
     """
-    parser = argparse.ArgumentParser(
-        description="Generate RenderCV YAML from profile, job, and LLM selection."
-    )
-    parser.add_argument(
-        "--profile",
-        type=Path,
-        required=True,
-        help="Path to profile.yaml.",
-    )
-    parser.add_argument(
-        "--job",
-        type=Path,
-        required=True,
-        help="Path to job.txt.",
-    )
-    parser.add_argument(
-        "--selection",
-        type=Path,
-        required=True,
-        help="Path to LLM selection JSON file.",
-    )
-    parser.add_argument(
-        "--out",
-        type=Path,
-        required=True,
-        help="Output file path (or directory) for the RenderCV YAML file.",
-    )
-    parser.add_argument(
-        "--design",
-        type=Path,
-        help="Optional design override YAML file.",
-    )
-    parser.add_argument(
-        "--locale",
-        type=Path,
-        help="Optional locale override YAML file.",
-    )
-    parser.add_argument(
-        "--settings",
-        type=Path,
-        help="Optional settings override YAML file.",
-    )
-    args = parser.parse_args(argv)
-
     try:
-        profile = load_profile(args.profile)
-        load_job(args.job)
+        typer.secho(
+            "Note: --selection is an MVP/testing input and will become optional "
+            "once LLM integration is added.",
+            fg=typer.colors.YELLOW,
+            err=True,
+        )
+        profile_obj = load_profile(profile)
+        load_job(job)
 
-        plan = load_selection_plan(args.selection)
-        validate_selection_against_profile(profile, plan, strict=True)
+        plan = load_selection_plan(selection)
+        validate_selection_against_profile(profile_obj, plan, strict=True)
 
-        cv_doc = build_cv_dict(profile, plan)
+        cv_doc = build_cv_dict(profile_obj, plan)
 
-        design = _load_optional_block(args.design, "design")
-        locale = _load_optional_block(args.locale, "locale")
-        settings = _load_optional_block(args.settings, "settings")
+        design_block = _load_optional_block(design, "design")
+        locale_block = _load_optional_block(locale, "locale")
+        settings_block = _load_optional_block(settings, "settings")
 
         document = assemble_rendercv_document(
             cv_doc,
-            design=design,
-            locale=locale,
-            settings=settings,
+            design=design_block,
+            locale=locale_block,
+            settings=settings_block,
         )
 
         validate_rendercv_document(document)
-        out_path = _resolve_out_path(args.out)
+        out_path = _resolve_out_path(out)
         _write_yaml(document, out_path)
 
         print(f"RenderCV YAML written to: {out_path}")
-        return 0
     except (
         ProfileLoadError,
         JobLoadError,
@@ -114,7 +134,7 @@ def main(argv: list[str] | None = None) -> int:
         GenerateError,
     ) as exc:
         _print_error(exc)
-        return 1
+        raise typer.Exit(code=1)
 
 
 def _load_optional_block(path: Path | None, key: str) -> Mapping[str, Any] | None:
@@ -201,7 +221,3 @@ def _print_error(exc: Exception) -> None:
             print(f"- {location}: {error.message}")
         return
     print(f"Error: {exc}")
-
-
-if __name__ == "__main__":
-    raise SystemExit(main())

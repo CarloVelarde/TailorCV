@@ -19,6 +19,11 @@ Strict validation
 Selection output is strictly validated against the profile before mapping. Any
 unknown IDs or labels will fail validation and must be corrected by the LLM.
 
+Temporary requirement
+---------------------
+For the current MVP, users provide the selection JSON manually. This will be
+replaced by automatic LLM generation in the CLI.
+
 Output format
 -------------
 The LLM must return JSON with the following shape:

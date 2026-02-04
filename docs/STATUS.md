@@ -7,11 +7,11 @@ Current state (MVP)
 - Strict selection validation is enforced.
 - Deterministic mapping and full RenderCV validation are in place.
 - Defaults for design/locale/settings are applied when not overridden.
-- CLI entrypoint available via `python -m tailorcv`.
+- CLI entrypoint available via `python -m tailorcv` (Typer-based).
 
 Current limitation
 ------------------
-- No LLM integration yet; users must manually create `selection.json`.
+- No LLM integration yet; users must manually create `selection.json` and pass `--selection`.
 
 Next step
 ---------
