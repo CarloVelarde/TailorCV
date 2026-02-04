@@ -7,6 +7,7 @@ Current state (MVP)
 - Strict selection validation is enforced.
 - Deterministic mapping and full RenderCV validation are in place.
 - Defaults for design/locale/settings are applied when not overridden.
+- CLI entrypoint available via `python -m tailorcv`.
 
 Current limitation
 ------------------

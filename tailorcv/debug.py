@@ -188,10 +188,12 @@ def _print_document_preview(profile_path: Path, selection_path: Path) -> None:
     print(f"\nTop-level keys: {list(full_doc.keys())}")
 
 
-def main() -> int:
+def main(argv: list[str] | None = None) -> int:
     """
     Run the smoke test entrypoint.
 
+    :param argv: Optional argument list for CLI parsing.
+    :type argv: list[str] | None
     :return: Exit status (0 for success, 1 for failure).
     :rtype: int
     """
@@ -257,7 +259,7 @@ def main() -> int:
         action="store_true",
         help="Skip full document assembly preview output.",
     )
-    args = parser.parse_args()
+    args = parser.parse_args(argv)
 
     try:
         if not args.skip_job:

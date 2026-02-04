@@ -87,14 +87,14 @@ CLI usage
 Generate a RenderCV YAML file (file path or directory):
 
 ```bash
-python -m tailorcv.cli.generate \
+python -m tailorcv generate \
   --profile path/to/profile.yaml \
   --job path/to/job.txt \
   --selection path/to/selection.json \
   --out path/to/output.yaml
 
 # Or write to a directory (writes rendercv_output.yaml inside it)
-python -m tailorcv.cli.generate \
+python -m tailorcv generate \
   --profile path/to/profile.yaml \
   --job path/to/job.txt \
   --selection path/to/selection.json \
@@ -104,7 +104,7 @@ python -m tailorcv.cli.generate \
 Optional overrides:
 
 ```bash
-python -m tailorcv.cli.generate \
+python -m tailorcv generate \
   --profile path/to/profile.yaml \
   --job path/to/job.txt \
   --selection path/to/selection.json \
@@ -112,6 +112,12 @@ python -m tailorcv.cli.generate \
   --design path/to/design.yaml \
   --locale path/to/locale.yaml \
   --settings path/to/settings.yaml
+```
+
+Debug:
+
+```bash
+python -m tailorcv debug
 ```
 
 Repository layout

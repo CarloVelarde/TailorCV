@@ -26,10 +26,12 @@ class GenerateError(ValueError):
     """Raised when CLI generation fails."""
 
 
-def main() -> int:
+def main(argv: list[str] | None = None) -> int:
     """
     Generate a RenderCV YAML file from profile, job, and selection inputs.
 
+    :param argv: Optional argument list for CLI parsing.
+    :type argv: list[str] | None
     :return: Exit status (0 for success, 1 for failure).
     :rtype: int
     """
@@ -75,7 +77,7 @@ def main() -> int:
         type=Path,
         help="Optional settings override YAML file.",
     )
-    args = parser.parse_args()
+    args = parser.parse_args(argv)
 
     try:
         profile = load_profile(args.profile)
