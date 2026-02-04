@@ -47,7 +47,7 @@ def get_default_locale() -> Dict[str, Any]:
     :return: Default locale block.
     :rtype: dict[str, typing.Any]
     """
-    return {"language": "en"}
+    return {"language": "english"}
 
 
 def get_default_settings() -> Dict[str, Any]:

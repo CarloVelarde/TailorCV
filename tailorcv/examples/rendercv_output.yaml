@@ -1,0 +1,61 @@
+cv:
+  name: Carlo Velarde
+  headline: Software Engineering Student
+  location: Iowa City, IA
+  email: carlo.velarde@outlook.com
+  website: https://carlovelarde.com
+  social_networks:
+    - network: LinkedIn
+      username: carlovelarde
+    - network: GitHub
+      username: carlovelarde
+  sections:
+    Experience:
+      - company: Mastercard
+        position: Software Engineer Intern
+        location: United States
+        start_date: 2025-05
+        end_date: 2025-08
+        highlights:
+          - Built Python backend services for network gateway tooling.
+          - Collaborated with senior engineers on production systems.
+    Projects:
+      - name: Git Commit Rewriter
+        summary: CLI tool to clean up Git commit history
+        highlights:
+          - Designed an interactive CLI focused on human-readable workflows
+          - Implemented diff previews to guide commit rewrites
+    Education:
+      - institution: University of Iowa
+        area: Computer Science
+        degree: B.S.
+        location: Iowa City, IA
+        start_date: 2022-08
+        end_date: 2026-05
+        highlights:
+          - NSF REU in Cybersecurity
+          - 'Coursework: Databases, Networks, Operating Systems'
+    Skills:
+      - label: Languages
+        details: Python, Java, Go, JavaScript, Ruby
+      - label: Frameworks
+        details: FastAPI, React, Ruby on Rails
+design:
+  theme: engineeringresumes
+  page:
+    size: us-letter
+    top_margin: 0.7in
+    bottom_margin: 0.7in
+    left_margin: 0.7in
+    right_margin: 0.7in
+    show_footer: false
+  typography:
+    line_spacing: 0.6em
+    font_size:
+      body: 10pt
+      name: 24pt
+  entries:
+    date_and_location_width: 4.0cm
+locale:
+  language: english
+settings: {}

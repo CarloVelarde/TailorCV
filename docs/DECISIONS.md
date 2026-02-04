@@ -19,7 +19,7 @@ Design
 
 Locale
 ------
-- Default to `{"language": "en"}`.
+- Default to `{"language": "english"}` (RenderCV discriminator).
 - RenderCV defaults to English; we avoid assumptions about formats/labels.
 - Future expansion: date formats, localized section labels, numeric formats.
 
@@ -44,3 +44,8 @@ Mapping and assembly
 --------------------
 - Mapper is pure: `Profile + Plan -> RenderCV cv dict`.
 - Assembler injects defaults and optional overrides for design/locale/settings.
+
+CLI generation
+--------------
+- CLI expects a selection JSON file for MVP.
+- LLM integration and retry loop will live in the CLI layer.

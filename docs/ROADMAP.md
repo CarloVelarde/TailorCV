@@ -9,12 +9,12 @@ Now (MVP)
 - Strictly validate selection against the profile.
 - Build RenderCV `cv` dict deterministically.
 - Assemble full document with defaults and optional overrides.
+- CLI `tailorcv generate` command to run the pipeline.
 - Validate with RenderCV official models.
 
 Next
 ----
-- Add CLI `tailorcv generate`.
-- Add default design/locale/settings targeting one page.
+- Integrate LLM selection generation in the CLI (no manual JSON).
 - Add selection scoring (tags + keyword overlap).
 - Add retry strategy on validation errors.
 

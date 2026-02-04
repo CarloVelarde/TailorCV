@@ -5,7 +5,7 @@ Data flow
 ---------
 1) Load profile.yaml -> Profile model
 2) Load job.txt -> Job model (cleaned text + keywords)
-3) LLM selection -> JSON selection plan
+3) Selection plan -> JSON (currently user-provided; future: LLM-generated)
 4) Strict selection validation -> profile + plan consistency
 5) Deterministic mapper -> RenderCV `cv` dictionary
 6) Assemble full document with defaults/overrides
@@ -25,7 +25,7 @@ Key modules
 - `tailorcv/mappers/`: Deterministic mapping to RenderCV structures.
 - `tailorcv/schema/`: Pydantic schemas for profile and RenderCV targets.
 - `tailorcv/validators/`: Official RenderCV validation.
-- `tailorcv/cli/`: CLI entrypoints (planned).
+- `tailorcv/cli/`: CLI entrypoints.
 
 Design goals
 ------------

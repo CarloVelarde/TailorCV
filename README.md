@@ -24,6 +24,12 @@ MVP flow (hybrid LLM + deterministic build)
 The LLM does selection and optional rewriting; TailorCV does formatting,
 schema compliance, and validation.
 
+Current status
+--------------
+The pipeline works end-to-end using a user-provided selection JSON, but there
+is no LLM integration yet. See `docs/STATUS.md` for the current state and next
+step.
+
 Inputs
 ------
 - `profile.yaml` (user global profile)
@@ -76,6 +82,38 @@ python -m tailorcv.debug --skip-selection-validation
 python -m tailorcv.debug --skip-assembly
 ```
 
+CLI usage
+---------
+Generate a RenderCV YAML file (file path or directory):
+
+```bash
+python -m tailorcv.cli.generate \
+  --profile path/to/profile.yaml \
+  --job path/to/job.txt \
+  --selection path/to/selection.json \
+  --out path/to/output.yaml
+
+# Or write to a directory (writes rendercv_output.yaml inside it)
+python -m tailorcv.cli.generate \
+  --profile path/to/profile.yaml \
+  --job path/to/job.txt \
+  --selection path/to/selection.json \
+  --out path/to/output_dir
+```
+
+Optional overrides:
+
+```bash
+python -m tailorcv.cli.generate \
+  --profile path/to/profile.yaml \
+  --job path/to/job.txt \
+  --selection path/to/selection.json \
+  --out path/to/output.yaml \
+  --design path/to/design.yaml \
+  --locale path/to/locale.yaml \
+  --settings path/to/settings.yaml
+```
+
 Repository layout
 -----------------
 - `tailorcv/defaults/`: One-page-biased defaults for design/locale/settings.
@@ -95,3 +133,4 @@ Docs
 - `docs/ROADMAP.md`: MVP and next steps.
 - `docs/STYLEGUIDE.md`: Formatting, naming, and docstring conventions.
 - `docs/DECISIONS.md`: Rationale for key MVP decisions.
+- `docs/STATUS.md`: Current product status and next step.
