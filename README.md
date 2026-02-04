@@ -123,6 +123,20 @@ Debug:
 python -m tailorcv debug
 ```
 
+Testing
+-------
+Run all tests:
+
+```bash
+pytest
+```
+
+Run a subset:
+
+```bash
+pytest tests/test_loaders.py tests/test_selection_validator.py
+```
+
 Repository layout
 -----------------
 - `tailorcv/defaults/`: One-page-biased defaults for design/locale/settings.
@@ -143,3 +157,5 @@ Docs
 - `docs/STYLEGUIDE.md`: Formatting, naming, and docstring conventions.
 - `docs/DECISIONS.md`: Rationale for key MVP decisions.
 - `docs/STATUS.md`: Current product status and next step.
+- `docs/TEST_PLAN.md`: Temporary Phase 1 test plan.
+- `docs/TESTING.md`: How to run tests and layout.

@@ -15,6 +15,7 @@ pydantic-extra-types==2.10.6
 pydantic_core==2.41.5
 Pygments==2.19.2
 PyYAML==6.0.3
+pytest==8.3.4
 rendercv==2.6
 rendercv-fonts==0.5.1
 rich==14.2.0

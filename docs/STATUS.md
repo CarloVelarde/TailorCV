@@ -12,6 +12,7 @@ Current state (MVP)
 Current limitation
 ------------------
 - No LLM integration yet; users must manually create `selection.json` and pass `--selection`.
+- No automated test suite implemented yet; see `docs/TEST_PLAN.md`.
 
 Next step
 ---------

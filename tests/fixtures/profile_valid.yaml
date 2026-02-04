@@ -1,0 +1,23 @@
+meta:
+  name: Test User
+  headline: Backend Engineer
+  location: Test City, TS
+  email: test.user@example.com
+education:
+  - id: edu_1
+    institution: Test University
+    area: Computer Science
+experience:
+  - id: exp_1
+    company: TestCo
+    position: Software Engineer
+    highlights:
+      - Built an internal API
+projects:
+  - id: proj_1
+    name: Test Project
+    highlights:
+      - Shipped MVP
+skills:
+  - label: Languages
+    details: Python, Go
