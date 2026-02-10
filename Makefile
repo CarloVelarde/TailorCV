@@ -1,4 +1,4 @@
-.PHONY: help lint format format-check test debug generate
+.PHONY: help lint format format-check test coverage debug generate
 
 help:
 	@echo "Targets:"
@@ -6,6 +6,7 @@ help:
 	@echo "  format        Format code with Ruff"
 	@echo "  format-check  Check formatting with Ruff"
 	@echo "  test          Run pytest"
+	@echo "  coverage      Run pytest with coverage"
 	@echo "  debug         Run TailorCV debug pipeline"
 	@echo "  generate      Run TailorCV generate (uses example inputs)"
 
@@ -20,6 +21,9 @@ format-check:
 
 test:
 	pytest
+
+coverage:
+	pytest --cov=tailorcv --cov-report=term-missing
 
 debug:
 	python -m tailorcv debug

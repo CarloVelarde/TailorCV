@@ -10,6 +10,7 @@ Goals
 Frameworks
 ----------
 - `pytest`
+- `pytest-cov` for coverage reporting
 - `typer.testing.CliRunner`
 
 Layout
@@ -36,10 +37,21 @@ Run a subset:
 pytest tests/test_loaders.py tests/test_selection_validator.py
 ```
 
+Coverage
+--------
+```
+pytest --cov=tailorcv --cov-report=term-missing
+```
+
+CI
+--
+GitHub Actions runs linting and tests and uploads coverage to Codecov.
+
 Makefile shortcuts
 ------------------
 ```
 make test
+make coverage
 make lint
 make format
 make format-check

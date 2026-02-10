@@ -8,6 +8,9 @@ ResumeGen / TailorCV
   <a href="https://codecov.io/github/CarloVelarde/ResumeGen" >
     <img src="https://codecov.io/github/CarloVelarde/ResumeGen/graph/badge.svg?token=M30PAVAJ1I"/>
   </a>
+  <a href="https://codecov.io/gh/CarloVelarde/ResumeGen/graphs/sunburst.svg?token=M30PAVAJ1I">
+    <img src="https://codecov.io/gh/CarloVelarde/ResumeGen/graphs/sunburst.svg?token=M30PAVAJ1I" alt="Coverage Sunburst"/>
+  </a>
 </p>
 
 Vision
@@ -146,6 +149,12 @@ Run a subset:
 pytest tests/test_loaders.py tests/test_selection_validator.py
 ```
 
+Coverage:
+
+```bash
+pytest --cov=tailorcv --cov-report=term-missing
+```
+
 Makefile shortcuts
 ------------------
 ```
@@ -153,6 +162,7 @@ make lint
 make format
 make format-check
 make test
+make coverage
 make debug
 make generate
 ```
