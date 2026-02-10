@@ -189,3 +189,7 @@ Docs
 - `docs/STATUS.md`: Current product status and next step.
 - `docs/TEST_PLAN.md`: Temporary Phase 1 test plan.
 - `docs/TESTING.md`: How to run tests and layout.
+
+Acknowledgements
+----
+This project is built on top of RenderCV, which is licensed under the MIT License.
