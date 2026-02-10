@@ -5,8 +5,8 @@ ResumeGen / TailorCV
   <a href="https://github.com/CarloVelarde/ResumeGen/actions/workflows/tests.yaml">
     <img src="https://github.com/CarloVelarde/ResumeGen/actions/workflows/tests.yaml/badge.svg" alt="CI">
   </a>
-  <a href="https://codecov.io/gh/CarloVelarde/ResumeGen">
-    <img src="https://codecov.io/gh/CarloVelarde/ResumeGen/branch/main/graph/badge.svg" alt="Coverage">
+  <a href="https://codecov.io/github/CarloVelarde/ResumeGen" >
+    <img src="https://codecov.io/github/CarloVelarde/ResumeGen/graph/badge.svg?token=M30PAVAJ1I"/>
   </a>
 </p>
 
