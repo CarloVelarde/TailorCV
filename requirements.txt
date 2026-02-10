@@ -1,8 +1,10 @@
 annotated-types==0.7.0
 click==8.3.1
+coverage==7.13.4
 dnspython==2.8.0
 email-validator==2.3.0
 idna==3.11
+iniconfig==2.3.0
 Jinja2==3.1.6
 Markdown==3.10
 markdown-it-py==4.0.0
@@ -10,12 +12,14 @@ MarkupSafe==3.0.3
 mdurl==0.1.2
 packaging==25.0
 phonenumbers==9.0.21
+pluggy==1.6.0
 pydantic==2.12.5
 pydantic-extra-types==2.10.6
 pydantic_core==2.41.5
 Pygments==2.19.2
-PyYAML==6.0.3
 pytest==8.3.4
+pytest-cov==7.0.0
+PyYAML==6.0.3
 rendercv==2.6
 rendercv-fonts==0.5.1
 rich==14.2.0
