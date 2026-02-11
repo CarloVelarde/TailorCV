@@ -9,6 +9,11 @@ TailorCV converts the structured output into RenderCV YAML and validates it.
 Source of truth
 ---------------
 The contract is defined in `tailorcv/llm/selection_schema.py` and should be kept in sync with this document.
+Provider plumbing for generation lives in:
+- `tailorcv/llm/base.py`
+- `tailorcv/llm/runtime.py`
+- `tailorcv/llm/router.py`
+- `tailorcv/llm/providers/openai_provider.py`
 
 Rewriting guidance
 ------------------

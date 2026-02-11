@@ -88,3 +88,21 @@ Init persistence ordering
 - Rationale:
   - Avoids partially-applied setup state where config is saved but secret handling fails.
   - Keeps setup outcomes more atomic and easier to reason about.
+
+Provider abstraction strategy
+-----------------------------
+- Added a provider protocol (`tailorcv/llm/base.py`) and provider router
+  (`tailorcv/llm/router.py`) before wiring generation flow to OpenAI.
+- Rationale:
+  - Keeps OpenAI-specific code isolated from orchestration and schema logic.
+  - Supports incremental provider additions (Gemini, Groq, Claude) without
+    changing mapper/validator internals.
+  - Keeps issue boundaries clean: provider plumbing first, selection workflow next.
+
+OpenAI provider loading behavior
+--------------------------------
+- OpenAI SDK client creation is lazy in `OpenAiProvider`.
+- Rationale:
+  - Importing TailorCV modules should not fail in environments where `openai`
+    is not installed yet.
+  - Enables deterministic provider tests with injected fake clients.

@@ -27,6 +27,9 @@ tests/
   test_assembler.py
   test_pipeline.py
   test_cli_init.py
+  test_llm_runtime.py
+  test_llm_router.py
+  test_openai_provider.py
   test_cli_generate.py
 ```
 

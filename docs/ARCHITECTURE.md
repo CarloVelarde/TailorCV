@@ -33,6 +33,8 @@ Optional inputs
 Key modules
 -----------
 - `tailorcv/app/`: Pipeline orchestration for end-to-end generation.
+- `tailorcv/llm/`: LLM contracts, runtime config resolution, provider router.
+- `tailorcv/llm/providers/`: Concrete provider implementations (OpenAI first).
 - `tailorcv/defaults/`: One-page-biased defaults for design/locale/settings.
 - `tailorcv/assemblers/`: Assemble full RenderCV documents with overrides.
 - `tailorcv/config/`: Persistent config + secret helpers (keyring/env).

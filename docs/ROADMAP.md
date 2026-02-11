@@ -15,6 +15,8 @@ Now (MVP)
   - pipeline orchestration module (`tailorcv/app/pipeline.py`)
   - persisted config + keyring secret helpers (`tailorcv/config/`)
   - setup command (`tailorcv init`)
+  - provider abstraction + router (`tailorcv/llm/base.py`, `tailorcv/llm/router.py`)
+  - OpenAI provider implementation (`tailorcv/llm/providers/openai_provider.py`)
 
 Next
 ----

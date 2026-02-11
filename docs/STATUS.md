@@ -12,18 +12,24 @@ Current state (MVP)
 - First-run setup command available via `python -m tailorcv init`.
 - Persisted config for LLM defaults (`provider`, `model`) is available.
 - API key resolution is implemented as: environment variable -> OS keychain.
+- Provider abstraction layer is implemented in `tailorcv/llm/` with
+  an OpenAI provider implementation (`tailorcv/llm/providers/openai_provider.py`).
 
 Current limitation
 ------------------
 - No LLM integration yet; users must manually create `selection.json` and pass `--selection`.
 - Persisted LLM config is currently setup-only and is not consumed by
   `generate` until LLM selection is integrated.
+- OpenAI provider is not yet wired into `generate`; selection still comes from
+  user-provided `--selection`.
 
 Testing status
 --------------
 - Phase 1 tests TEST-001 through TEST-008 implemented.
 - Added tests for pipeline orchestration, config storage, secret resolution,
   and `tailorcv init` non-interactive setup paths.
+- Added tests for LLM runtime config resolution, provider routing, and OpenAI
+  structured-response parsing behavior.
 
 Next step
 ---------

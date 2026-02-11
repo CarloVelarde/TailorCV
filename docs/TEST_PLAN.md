@@ -96,3 +96,6 @@ Notes
   - persisted config read/write paths
   - API key env/keyring resolution
   - `tailorcv init` command non-interactive setup paths
+  - runtime provider/model/api-key resolution precedence
+  - provider router behavior
+  - OpenAI provider JSON parsing and schema validation error handling
