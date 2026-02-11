@@ -91,3 +91,8 @@ Notes
 - Keep fixtures minimal; avoid coupling to `tailorcv/examples/`.
 - Prefer contains/assertion checks over exact ordering.
 - Add new test items here when adding behavior that should be validated.
+- LLM-integration foundation tests have also been added for:
+  - pipeline orchestration module behavior
+  - persisted config read/write paths
+  - API key env/keyring resolution
+  - `tailorcv init` command non-interactive setup paths

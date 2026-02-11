@@ -42,8 +42,9 @@ schema compliance, and validation.
 Current status
 --------------
 The pipeline works end-to-end using a user-provided selection JSON, but there
-is no LLM integration yet. See `docs/STATUS.md` for the current state and next
-step.
+is no LLM integration yet. Foundation work for LLM integration is in place
+(`tailorcv/app/pipeline.py`, `tailorcv/config/`, and `tailorcv init`).
+See `docs/STATUS.md` for the current state and next step.
 
 Inputs
 ------
@@ -99,6 +100,17 @@ python -m tailorcv.debug --skip-assembly
 
 CLI usage
 ---------
+First-run setup (persist provider/model and configure API key handling):
+
+```bash
+python -m tailorcv init
+```
+
+Notes:
+- API key lookup uses environment-variable override first (e.g. `OPENAI_API_KEY`),
+  then OS keychain storage when available.
+- `--non-interactive` mode is available for scripts/automation.
+
 Generate a RenderCV YAML file (file path or directory):
 
 ```bash
@@ -168,10 +180,13 @@ make test
 make coverage
 make debug
 make generate
+make init
 ```
 
 Repository layout
 -----------------
+- `tailorcv/app/`: Pipeline orchestration for generation flow.
+- `tailorcv/config/`: Persisted runtime config and secret helpers.
 - `tailorcv/defaults/`: One-page-biased defaults for design/locale/settings.
 - `tailorcv/assemblers/`: Assemble full RenderCV documents with overrides.
 - `tailorcv/loaders/`: Load and validate profile and job inputs.

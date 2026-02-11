@@ -10,16 +10,11 @@ import typer
 from rendercv.exception import RenderCVUserValidationError
 from rendercv.schema.yaml_reader import read_yaml
 
-from tailorcv.assemblers.rendercv_document import assemble_rendercv_document
-from tailorcv.llm.selection_schema import SelectionLoadError, load_selection_plan
-from tailorcv.loaders.job_loader import JobLoadError, load_job
-from tailorcv.loaders.profile_loader import ProfileLoadError, load_profile
-from tailorcv.mappers.rendercv_mapper import build_cv_dict
-from tailorcv.validators.rendercv_validator import validate_rendercv_document
-from tailorcv.validators.selection_validator import (
-    SelectionValidationFailure,
-    validate_selection_against_profile,
-)
+from tailorcv.app.pipeline import build_rendercv_document
+from tailorcv.llm.selection_schema import SelectionLoadError
+from tailorcv.loaders.job_loader import JobLoadError
+from tailorcv.loaders.profile_loader import ProfileLoadError
+from tailorcv.validators.selection_validator import SelectionValidationFailure
 
 
 class GenerateError(ValueError):
@@ -101,26 +96,18 @@ def generate(
             fg=typer.colors.YELLOW,
             err=True,
         )
-        profile_obj = load_profile(profile)
-        load_job(job)
-
-        plan = load_selection_plan(selection)
-        validate_selection_against_profile(profile_obj, plan, strict=True)
-
-        cv_doc = build_cv_dict(profile_obj, plan)
-
         design_block = _load_optional_block(design, "design")
         locale_block = _load_optional_block(locale, "locale")
         settings_block = _load_optional_block(settings, "settings")
 
-        document = assemble_rendercv_document(
-            cv_doc,
+        document = build_rendercv_document(
+            profile_path=profile,
+            job_path=job,
+            selection_path=selection,
             design=design_block,
             locale=locale_block,
             settings=settings_block,
         )
-
-        validate_rendercv_document(document)
         out_path = _resolve_out_path(out)
         _write_yaml(document, out_path)
 

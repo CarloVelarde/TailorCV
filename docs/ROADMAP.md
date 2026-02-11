@@ -11,6 +11,10 @@ Now (MVP)
 - Assemble full document with defaults and optional overrides.
 - CLI `tailorcv generate` command to run the pipeline.
 - Validate with RenderCV official models.
+- LLM-integration groundwork:
+  - pipeline orchestration module (`tailorcv/app/pipeline.py`)
+  - persisted config + keyring secret helpers (`tailorcv/config/`)
+  - setup command (`tailorcv init`)
 
 Next
 ----
