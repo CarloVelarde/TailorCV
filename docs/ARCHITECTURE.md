@@ -5,24 +5,21 @@ Data flow (current)
 -------------------
 1) Load profile.yaml -> Profile model
 2) Load job.txt -> Job model (cleaned text + keywords)
-3) Load selection plan from user-provided JSON
+3) Resolve selection source:
+   - default: LLM selector service
+   - optional override: manual `--selection` JSON
 4) Strict selection validation -> profile + plan consistency
 5) Deterministic mapper -> RenderCV `cv` dictionary
 6) Assemble full document with defaults/overrides
 7) RenderCV validation -> RenderCVModel
 
-Data flow (next: LLM-integrated)
---------------------------------
+LLM selection path (current default)
+------------------------------------
 1) Resolve persisted/default runtime config -> provider/model defaults
-2) Load profile.yaml -> Profile model
-3) Load job.txt -> Job model (cleaned text + keywords)
-4) Build selection prompt payload from profile + job context
-5) Generate selection plan via provider (OpenAI first)
-6) Retry with validation/provider feedback when plan is invalid
-7) Strict selection validation -> profile + plan consistency
-8) Deterministic mapper -> RenderCV `cv` dictionary
-9) Assemble full document with defaults/overrides
-10) RenderCV validation -> RenderCVModel
+2) Build selection prompt payload from profile + job context
+3) Generate selection plan via provider (OpenAI first)
+4) Retry with validation/provider feedback when plan is invalid
+5) Return strict-valid plan to generation pipeline
 
 Optional inputs
 ---------------

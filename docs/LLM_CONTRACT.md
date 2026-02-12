@@ -32,10 +32,10 @@ When generation fails validation or provider response checks, the selector
 service retries with bounded attempts and includes failure feedback in the next
 prompt payload.
 
-Temporary requirement
+CLI integration state
 ---------------------
-For the current MVP, users provide the selection JSON manually. This will be
-replaced by automatic LLM generation in the CLI.
+- `generate` now uses automatic LLM selection generation by default.
+- Manual selection JSON remains supported via `--selection` for debug/repro mode.
 
 Output format
 -------------

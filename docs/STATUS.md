@@ -3,7 +3,7 @@ Project Status
 
 Current state (MVP)
 -------------------
-- Full pipeline works end-to-end using a user-provided selection JSON.
+- Full pipeline works end-to-end with LLM selection as the default path.
 - Strict selection validation is enforced.
 - Deterministic mapping and full RenderCV validation are in place.
 - Defaults for design/locale/settings are applied when not overridden.
@@ -17,16 +17,13 @@ Current state (MVP)
 - Selection-generation service is implemented in:
   - `tailorcv/llm/selection_prompt.py` (prompt builder)
   - `tailorcv/llm/selector.py` (runtime resolve + provider call + retry loop)
+- CLI `generate` now uses selector service by default and supports
+  `--selection` as a manual override for debug/repro workflows.
 
 Current limitation
 ------------------
-- No LLM integration yet; users must manually create `selection.json` and pass `--selection`.
-- Persisted LLM config is currently setup-only and is not consumed by
-  `generate` until LLM selection is integrated.
-- OpenAI provider is not yet wired into `generate`; selection still comes from
-  user-provided `--selection`.
-- Selection generation service is not yet wired into `generate`; the command
-  still requires manual `--selection` until CLI integration is completed.
+- LLM integration currently targets OpenAI provider only.
+- Live provider behavior is not exercised in CI (tests mock provider clients).
 
 Testing status
 --------------
@@ -36,8 +33,9 @@ Testing status
 - Added tests for LLM runtime config resolution, provider routing, and OpenAI
   structured-response parsing behavior.
 - Added tests for selection prompt construction and selector retry behavior.
+- Added tests for `generate` default LLM path and manual `--selection` override.
 
 Next step
 ---------
-- Wire selector service into `generate` so LLM selection is the default path.
-- Keep manual `--selection` path for debugging/reproducibility.
+- Add selection scoring (tags + keyword overlap) to improve ranking quality.
+- Expand provider support beyond OpenAI using existing router abstraction.

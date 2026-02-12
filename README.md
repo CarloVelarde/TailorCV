@@ -41,11 +41,15 @@ schema compliance, and validation.
 
 Current status
 --------------
-The pipeline works end-to-end using a user-provided selection JSON, but there
-is no LLM integration yet. Foundation work for LLM integration is in place
-(`tailorcv/app/pipeline.py`, `tailorcv/config/`, `tailorcv init`, and the
-provider/selector layer in `tailorcv/llm/`).
+The CLI now supports LLM-driven selection generation as the default path for
+`generate`. A manual `--selection` JSON is still supported for debugging and
+reproducibility.
 See `docs/STATUS.md` for the current state and next step.
+
+Start Here (New Users)
+----------------------
+For complete setup from fresh clone to first successful command, see:
+`docs/GETTING_STARTED.md`
 
 Inputs
 ------
@@ -118,19 +122,36 @@ Generate a RenderCV YAML file (file path or directory):
 python -m tailorcv generate \
   --profile path/to/profile.yaml \
   --job path/to/job.txt \
-  --selection path/to/selection.json \
   --out path/to/output.yaml
 
 # Or write to a directory (writes rendercv_output.yaml inside it)
 python -m tailorcv generate \
   --profile path/to/profile.yaml \
   --job path/to/job.txt \
-  --selection path/to/selection.json \
   --out path/to/output_dir
 ```
 
-Note: `--selection` is required for the current MVP. This will become optional
-once LLM selection generation is integrated.
+Manual selection override (debug/repro mode):
+
+```bash
+python -m tailorcv generate \
+  --profile path/to/profile.yaml \
+  --job path/to/job.txt \
+  --selection path/to/selection.json \
+  --out path/to/output.yaml
+```
+
+Optional LLM runtime overrides:
+
+```bash
+python -m tailorcv generate \
+  --profile path/to/profile.yaml \
+  --job path/to/job.txt \
+  --out path/to/output.yaml \
+  --provider openai \
+  --model gpt-4.1-mini \
+  --max-attempts 3
+```
 
 Optional overrides:
 
@@ -201,6 +222,7 @@ Repository layout
 
 Docs
 ----
+- `docs/GETTING_STARTED.md`: New-user setup, configuration, and first run.
 - `docs/VISION.md`: Product vision and principles.
 - `docs/ARCHITECTURE.md`: Data flow and module roles.
 - `docs/LLM_CONTRACT.md`: LLM JSON output contract.

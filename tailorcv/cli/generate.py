@@ -1,4 +1,4 @@
-"""CLI command for generating RenderCV YAML from profile + job + selection."""
+"""CLI command for generating RenderCV YAML from profile + job inputs."""
 
 from __future__ import annotations
 
@@ -11,7 +11,9 @@ from rendercv.exception import RenderCVUserValidationError
 from rendercv.schema.yaml_reader import read_yaml
 
 from tailorcv.app.pipeline import build_rendercv_document
+from tailorcv.config.models import LlmProvider
 from tailorcv.llm.selection_schema import SelectionLoadError
+from tailorcv.llm.selector import SelectionGenerationFailure, SelectionGenerationOptions
 from tailorcv.loaders.job_loader import JobLoadError
 from tailorcv.loaders.profile_loader import ProfileLoadError
 from tailorcv.validators.selection_validator import SelectionValidationFailure
@@ -36,12 +38,33 @@ def generate(
         readable=True,
         help="Path to job.txt.",
     ),
-    selection: Path = typer.Option(
-        ...,
+    selection: Path | None = typer.Option(
+        None,
         exists=True,
         dir_okay=False,
         readable=True,
-        help="Path to selection JSON (MVP/testing; LLM will replace).",
+        help="Optional path to manual selection JSON (debug/repro mode).",
+    ),
+    provider: LlmProvider | None = typer.Option(
+        None,
+        help="Optional provider override. Defaults to saved config.",
+    ),
+    model: str | None = typer.Option(
+        None,
+        help="Optional model override. Defaults to saved config.",
+    ),
+    api_key: str | None = typer.Option(
+        None,
+        help="Optional API key override (useful for CI/one-off runs).",
+    ),
+    max_attempts: int = typer.Option(
+        3,
+        min=1,
+        help="Maximum LLM selection retries before failing.",
+    ),
+    config_path: Path | None = typer.Option(
+        None,
+        help="Optional config path override (defaults to TailorCV config path).",
     ),
     out: Path = typer.Option(
         ...,
@@ -70,14 +93,24 @@ def generate(
     ),
 ) -> None:
     """
-    Generate a RenderCV YAML file from profile, job, and selection inputs.
+    Generate a RenderCV YAML file from profile and job inputs.
 
     :param profile: Path to profile.yaml.
     :type profile: pathlib.Path
     :param job: Path to job.txt.
     :type job: pathlib.Path
-    :param selection: Path to selection JSON file.
-    :type selection: pathlib.Path
+    :param selection: Optional path to manual selection JSON file.
+    :type selection: pathlib.Path | None
+    :param provider: Optional provider override.
+    :type provider: tailorcv.config.models.LlmProvider | None
+    :param model: Optional model override.
+    :type model: str | None
+    :param api_key: Optional API key override.
+    :type api_key: str | None
+    :param max_attempts: Maximum selection generation attempts.
+    :type max_attempts: int
+    :param config_path: Optional config path override.
+    :type config_path: pathlib.Path | None
     :param out: Output file path or directory.
     :type out: pathlib.Path
     :param design: Optional design override YAML file.
@@ -90,12 +123,22 @@ def generate(
     :rtype: None
     """
     try:
-        typer.secho(
-            "Note: --selection is an MVP/testing input and will become optional "
-            "once LLM integration is added.",
-            fg=typer.colors.YELLOW,
-            err=True,
-        )
+        llm_options: SelectionGenerationOptions | None = None
+        if selection is not None:
+            typer.secho(
+                "Using manual selection override from --selection (debug/repro mode).",
+                fg=typer.colors.YELLOW,
+                err=True,
+            )
+        else:
+            llm_options = SelectionGenerationOptions(
+                provider=provider,
+                model=model,
+                api_key=api_key,
+                config_path=config_path,
+                max_attempts=max_attempts,
+            )
+
         design_block = _load_optional_block(design, "design")
         locale_block = _load_optional_block(locale, "locale")
         settings_block = _load_optional_block(settings, "settings")
@@ -104,6 +147,7 @@ def generate(
             profile_path=profile,
             job_path=job,
             selection_path=selection,
+            llm_options=llm_options,
             design=design_block,
             locale=locale_block,
             settings=settings_block,
@@ -117,6 +161,7 @@ def generate(
         JobLoadError,
         SelectionLoadError,
         SelectionValidationFailure,
+        SelectionGenerationFailure,
         RenderCVUserValidationError,
         GenerateError,
     ) as exc:
@@ -206,5 +251,10 @@ def _print_error(exc: Exception) -> None:
         for error in exc.validation_errors:
             location = ".".join(error.location)
             print(f"- {location}: {error.message}")
+        return
+    if isinstance(exc, SelectionGenerationFailure):
+        print("LLM selection generation failed:")
+        for error in exc.errors:
+            print(f"- attempt {error.attempt}: {error.message}")
         return
     print(f"Error: {exc}")

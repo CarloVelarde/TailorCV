@@ -19,11 +19,12 @@ Now (MVP)
   - OpenAI provider implementation (`tailorcv/llm/providers/openai_provider.py`)
   - selection prompt builder (`tailorcv/llm/selection_prompt.py`)
   - selection generation service + retry loop (`tailorcv/llm/selector.py`)
+  - CLI `generate` wiring with LLM-default selection and manual override
 
 Next
 ----
-- Integrate LLM selection generation in the CLI (no manual JSON).
 - Add selection scoring (tags + keyword overlap).
+- Expand provider coverage beyond OpenAI (Gemini/Groq/Claude).
 
 Later
 -----

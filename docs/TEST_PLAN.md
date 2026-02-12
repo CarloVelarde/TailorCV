@@ -101,3 +101,5 @@ Notes
   - OpenAI provider JSON parsing and schema validation error handling
   - selection prompt payload construction
   - selection generation retry loop with strict validation feedback
+  - `generate` default LLM selection path
+  - `generate` manual `--selection` override precedence

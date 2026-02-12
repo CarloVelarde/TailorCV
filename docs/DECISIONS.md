@@ -125,3 +125,13 @@ Prompt-builder + retry feedback loop
   - Keeps prompt content explicit and inspectable.
   - Uses strict validator output as direct correction signals for the next attempt.
   - Avoids infinite loops and provides deterministic failure reporting.
+
+Selection source precedence in `generate`
+-----------------------------------------
+- `generate` now resolves selection source as:
+  1) if `--selection` is provided, use manual selection JSON
+  2) otherwise, run LLM selection generation via selector service
+- Rationale:
+  - Aligns default UX with product goal (paste profile + job -> tailored output).
+  - Preserves deterministic debug/repro workflows with explicit manual override.
+  - Keeps pipeline extensible by isolating selection-source choice in orchestration.
