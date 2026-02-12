@@ -41,9 +41,15 @@ schema compliance, and validation.
 
 Current status
 --------------
-The pipeline works end-to-end using a user-provided selection JSON, but there
-is no LLM integration yet. See `docs/STATUS.md` for the current state and next
-step.
+The CLI now supports LLM-driven selection generation as the default path for
+`generate`. A manual `--selection` JSON is still supported for debugging and
+reproducibility.
+See `docs/STATUS.md` for the current state and next step.
+
+Start Here (New Users)
+----------------------
+For complete setup from fresh clone to first successful command, see:
+`docs/GETTING_STARTED.md`
 
 Inputs
 ------
@@ -99,7 +105,33 @@ python -m tailorcv.debug --skip-assembly
 
 CLI usage
 ---------
+First-run setup (persist provider/model and configure API key handling):
+
+```bash
+python -m tailorcv init
+```
+
+Notes:
+- API key lookup uses environment-variable override first (e.g. `OPENAI_API_KEY`),
+  then OS keychain storage when available.
+- `--non-interactive` mode is available for scripts/automation.
+
 Generate a RenderCV YAML file (file path or directory):
+
+```bash
+python -m tailorcv generate \
+  --profile path/to/profile.yaml \
+  --job path/to/job.txt \
+  --out path/to/output.yaml
+
+# Or write to a directory (writes rendercv_output.yaml inside it)
+python -m tailorcv generate \
+  --profile path/to/profile.yaml \
+  --job path/to/job.txt \
+  --out path/to/output_dir
+```
+
+Manual selection override (debug/repro mode):
 
 ```bash
 python -m tailorcv generate \
@@ -107,17 +139,19 @@ python -m tailorcv generate \
   --job path/to/job.txt \
   --selection path/to/selection.json \
   --out path/to/output.yaml
+```
 
-# Or write to a directory (writes rendercv_output.yaml inside it)
+Optional LLM runtime overrides:
+
+```bash
 python -m tailorcv generate \
   --profile path/to/profile.yaml \
   --job path/to/job.txt \
-  --selection path/to/selection.json \
-  --out path/to/output_dir
+  --out path/to/output.yaml \
+  --provider openai \
+  --model gpt-4.1-mini \
+  --max-attempts 3
 ```
-
-Note: `--selection` is required for the current MVP. This will become optional
-once LLM selection generation is integrated.
 
 Optional overrides:
 
@@ -168,10 +202,15 @@ make test
 make coverage
 make debug
 make generate
+make init
 ```
 
 Repository layout
 -----------------
+- `tailorcv/app/`: Pipeline orchestration for generation flow.
+- `tailorcv/llm/`: LLM contracts, runtime config resolution, provider routing, and selector service.
+- `tailorcv/llm/providers/`: Concrete provider implementations.
+- `tailorcv/config/`: Persisted runtime config and secret helpers.
 - `tailorcv/defaults/`: One-page-biased defaults for design/locale/settings.
 - `tailorcv/assemblers/`: Assemble full RenderCV documents with overrides.
 - `tailorcv/loaders/`: Load and validate profile and job inputs.
@@ -183,6 +222,7 @@ Repository layout
 
 Docs
 ----
+- `docs/GETTING_STARTED.md`: New-user setup, configuration, and first run.
 - `docs/VISION.md`: Product vision and principles.
 - `docs/ARCHITECTURE.md`: Data flow and module roles.
 - `docs/LLM_CONTRACT.md`: LLM JSON output contract.

@@ -11,12 +11,20 @@ Now (MVP)
 - Assemble full document with defaults and optional overrides.
 - CLI `tailorcv generate` command to run the pipeline.
 - Validate with RenderCV official models.
+- LLM-integration groundwork:
+  - pipeline orchestration module (`tailorcv/app/pipeline.py`)
+  - persisted config + keyring secret helpers (`tailorcv/config/`)
+  - setup command (`tailorcv init`)
+  - provider abstraction + router (`tailorcv/llm/base.py`, `tailorcv/llm/router.py`)
+  - OpenAI provider implementation (`tailorcv/llm/providers/openai_provider.py`)
+  - selection prompt builder (`tailorcv/llm/selection_prompt.py`)
+  - selection generation service + retry loop (`tailorcv/llm/selector.py`)
+  - CLI `generate` wiring with LLM-default selection and manual override
 
 Next
 ----
-- Integrate LLM selection generation in the CLI (no manual JSON).
 - Add selection scoring (tags + keyword overlap).
-- Add retry strategy on validation errors.
+- Expand provider coverage beyond OpenAI (Gemini/Groq/Claude).
 
 Later
 -----

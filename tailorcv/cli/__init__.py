@@ -6,6 +6,7 @@ import typer
 
 from tailorcv.cli.debug import debug
 from tailorcv.cli.generate import generate
+from tailorcv.cli.init import init
 
 app = typer.Typer(
     add_completion=False,
@@ -15,3 +16,4 @@ app = typer.Typer(
 
 app.command()(generate)
 app.command()(debug)
+app.command()(init)

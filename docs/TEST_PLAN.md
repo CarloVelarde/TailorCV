@@ -91,3 +91,15 @@ Notes
 - Keep fixtures minimal; avoid coupling to `tailorcv/examples/`.
 - Prefer contains/assertion checks over exact ordering.
 - Add new test items here when adding behavior that should be validated.
+- LLM-integration foundation tests have also been added for:
+  - pipeline orchestration module behavior
+  - persisted config read/write paths
+  - API key env/keyring resolution
+  - `tailorcv init` command non-interactive setup paths
+  - runtime provider/model/api-key resolution precedence
+  - provider router behavior
+  - OpenAI provider JSON parsing and schema validation error handling
+  - selection prompt payload construction
+  - selection generation retry loop with strict validation feedback
+  - `generate` default LLM selection path
+  - `generate` manual `--selection` override precedence

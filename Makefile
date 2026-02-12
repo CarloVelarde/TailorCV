@@ -1,4 +1,4 @@
-.PHONY: help lint format format-check test coverage debug generate
+.PHONY: help lint format format-check test coverage debug generate init
 
 help:
 	@echo "Targets:"
@@ -9,6 +9,7 @@ help:
 	@echo "  coverage      Run pytest with coverage"
 	@echo "  debug         Run TailorCV debug pipeline"
 	@echo "  generate      Run TailorCV generate (uses example inputs)"
+	@echo "  init          Run TailorCV setup wizard"
 
 lint:
 	ruff check .
@@ -34,3 +35,6 @@ generate:
 		--job tailorcv/examples/jobs/sample_job.txt \
 		--selection tailorcv/examples/llm_selection_example.json \
 		--out /tmp/rendercv_out.yaml
+
+init:
+	python -m tailorcv init

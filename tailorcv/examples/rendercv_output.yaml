@@ -17,14 +17,16 @@ cv:
         start_date: 2025-05
         end_date: 2025-08
         highlights:
-          - Built Python backend services for network gateway tooling.
-          - Collaborated with senior engineers on production systems.
+          - Built Python backend services for network gateway tooling with 
+            emphasis on production readiness and APIs
+          - Collaborated with senior engineers on production systems, 
+            troubleshooting performance and deployment issues
     Projects:
       - name: Git Commit Rewriter
         summary: CLI tool to clean up Git commit history
         highlights:
-          - Designed an interactive CLI focused on human-readable workflows
-          - Implemented diff previews to guide commit rewrites
+          - Implemented an interactive CLI to clean Git commit history with diff
+            previews to guide rewrites, improving developer workflows
     Education:
       - institution: University of Iowa
         area: Computer Science
@@ -33,13 +35,17 @@ cv:
         start_date: 2022-08
         end_date: 2026-05
         highlights:
-          - NSF REU in Cybersecurity
-          - 'Coursework: Databases, Networks, Operating Systems'
+          - NSF REU in Cybersecurity; coursework in Databases, Networks, and 
+            Operating Systems
     Skills:
       - label: Languages
         details: Python, Java, Go, JavaScript, Ruby
       - label: Frameworks
         details: FastAPI, React, Ruby on Rails
+      - label: Databases
+        details: MySQL, MongoDB
+      - label: Tools
+        details: Git, Docker, Linux
 design:
   theme: engineeringresumes
   page:

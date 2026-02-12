@@ -9,6 +9,13 @@ TailorCV converts the structured output into RenderCV YAML and validates it.
 Source of truth
 ---------------
 The contract is defined in `tailorcv/llm/selection_schema.py` and should be kept in sync with this document.
+Provider plumbing for generation lives in:
+- `tailorcv/llm/base.py`
+- `tailorcv/llm/runtime.py`
+- `tailorcv/llm/router.py`
+- `tailorcv/llm/providers/openai_provider.py`
+- `tailorcv/llm/selection_prompt.py`
+- `tailorcv/llm/selector.py`
 
 Rewriting guidance
 ------------------
@@ -19,10 +26,16 @@ Strict validation
 Selection output is strictly validated against the profile before mapping. Any
 unknown IDs or labels will fail validation and must be corrected by the LLM.
 
-Temporary requirement
+Retry behavior
+--------------
+When generation fails validation or provider response checks, the selector
+service retries with bounded attempts and includes failure feedback in the next
+prompt payload.
+
+CLI integration state
 ---------------------
-For the current MVP, users provide the selection JSON manually. This will be
-replaced by automatic LLM generation in the CLI.
+- `generate` now uses automatic LLM selection generation by default.
+- Manual selection JSON remains supported via `--selection` for debug/repro mode.
 
 Output format
 -------------

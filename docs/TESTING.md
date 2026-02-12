@@ -19,10 +19,19 @@ Layout
 tests/
   conftest.py
   fixtures/
+  test_config_store.py
+  test_secrets.py
   test_loaders.py
   test_selection_validator.py
   test_mapper.py
   test_assembler.py
+  test_pipeline.py
+  test_cli_init.py
+  test_llm_runtime.py
+  test_llm_router.py
+  test_openai_provider.py
+  test_selection_prompt.py
+  test_selector.py
   test_cli_generate.py
 ```
 

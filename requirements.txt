@@ -5,11 +5,13 @@ dnspython==2.8.0
 email-validator==2.3.0
 idna==3.11
 iniconfig==2.3.0
+keyring==25.6.0
 Jinja2==3.1.6
 Markdown==3.10
 markdown-it-py==4.0.0
 MarkupSafe==3.0.3
 mdurl==0.1.2
+openai==2.20.0
 packaging==25.0
 phonenumbers==9.0.21
 pluggy==1.6.0
