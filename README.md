@@ -44,7 +44,7 @@ Current status
 The pipeline works end-to-end using a user-provided selection JSON, but there
 is no LLM integration yet. Foundation work for LLM integration is in place
 (`tailorcv/app/pipeline.py`, `tailorcv/config/`, `tailorcv init`, and the
-provider layer in `tailorcv/llm/`).
+provider/selector layer in `tailorcv/llm/`).
 See `docs/STATUS.md` for the current state and next step.
 
 Inputs
@@ -187,7 +187,7 @@ make init
 Repository layout
 -----------------
 - `tailorcv/app/`: Pipeline orchestration for generation flow.
-- `tailorcv/llm/`: LLM contracts, runtime config resolution, and provider routing.
+- `tailorcv/llm/`: LLM contracts, runtime config resolution, provider routing, and selector service.
 - `tailorcv/llm/providers/`: Concrete provider implementations.
 - `tailorcv/config/`: Persisted runtime config and secret helpers.
 - `tailorcv/defaults/`: One-page-biased defaults for design/locale/settings.

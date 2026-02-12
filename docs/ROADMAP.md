@@ -17,12 +17,13 @@ Now (MVP)
   - setup command (`tailorcv init`)
   - provider abstraction + router (`tailorcv/llm/base.py`, `tailorcv/llm/router.py`)
   - OpenAI provider implementation (`tailorcv/llm/providers/openai_provider.py`)
+  - selection prompt builder (`tailorcv/llm/selection_prompt.py`)
+  - selection generation service + retry loop (`tailorcv/llm/selector.py`)
 
 Next
 ----
 - Integrate LLM selection generation in the CLI (no manual JSON).
 - Add selection scoring (tags + keyword overlap).
-- Add retry strategy on validation errors.
 
 Later
 -----

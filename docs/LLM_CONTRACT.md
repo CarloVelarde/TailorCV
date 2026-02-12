@@ -14,6 +14,8 @@ Provider plumbing for generation lives in:
 - `tailorcv/llm/runtime.py`
 - `tailorcv/llm/router.py`
 - `tailorcv/llm/providers/openai_provider.py`
+- `tailorcv/llm/selection_prompt.py`
+- `tailorcv/llm/selector.py`
 
 Rewriting guidance
 ------------------
@@ -23,6 +25,12 @@ Strict validation
 -----------------
 Selection output is strictly validated against the profile before mapping. Any
 unknown IDs or labels will fail validation and must be corrected by the LLM.
+
+Retry behavior
+--------------
+When generation fails validation or provider response checks, the selector
+service retries with bounded attempts and includes failure feedback in the next
+prompt payload.
 
 Temporary requirement
 ---------------------

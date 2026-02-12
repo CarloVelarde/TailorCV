@@ -14,6 +14,9 @@ Current state (MVP)
 - API key resolution is implemented as: environment variable -> OS keychain.
 - Provider abstraction layer is implemented in `tailorcv/llm/` with
   an OpenAI provider implementation (`tailorcv/llm/providers/openai_provider.py`).
+- Selection-generation service is implemented in:
+  - `tailorcv/llm/selection_prompt.py` (prompt builder)
+  - `tailorcv/llm/selector.py` (runtime resolve + provider call + retry loop)
 
 Current limitation
 ------------------
@@ -22,6 +25,8 @@ Current limitation
   `generate` until LLM selection is integrated.
 - OpenAI provider is not yet wired into `generate`; selection still comes from
   user-provided `--selection`.
+- Selection generation service is not yet wired into `generate`; the command
+  still requires manual `--selection` until CLI integration is completed.
 
 Testing status
 --------------
@@ -30,10 +35,9 @@ Testing status
   and `tailorcv init` non-interactive setup paths.
 - Added tests for LLM runtime config resolution, provider routing, and OpenAI
   structured-response parsing behavior.
+- Added tests for selection prompt construction and selector retry behavior.
 
 Next step
 ---------
-- Integrate OpenAI selection generation in the CLI and make it the default
-  selection source.
-- Add retry loop on strict selection validation failures.
+- Wire selector service into `generate` so LLM selection is the default path.
 - Keep manual `--selection` path for debugging/reproducibility.

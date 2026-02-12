@@ -30,6 +30,8 @@ tests/
   test_llm_runtime.py
   test_llm_router.py
   test_openai_provider.py
+  test_selection_prompt.py
+  test_selector.py
   test_cli_generate.py
 ```
 

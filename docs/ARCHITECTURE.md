@@ -16,11 +16,13 @@ Data flow (next: LLM-integrated)
 1) Resolve persisted/default runtime config -> provider/model defaults
 2) Load profile.yaml -> Profile model
 3) Load job.txt -> Job model (cleaned text + keywords)
-4) Generate selection plan via provider (OpenAI first)
-5) Strict selection validation -> profile + plan consistency
-6) Deterministic mapper -> RenderCV `cv` dictionary
-7) Assemble full document with defaults/overrides
-8) RenderCV validation -> RenderCVModel
+4) Build selection prompt payload from profile + job context
+5) Generate selection plan via provider (OpenAI first)
+6) Retry with validation/provider feedback when plan is invalid
+7) Strict selection validation -> profile + plan consistency
+8) Deterministic mapper -> RenderCV `cv` dictionary
+9) Assemble full document with defaults/overrides
+10) RenderCV validation -> RenderCVModel
 
 Optional inputs
 ---------------
@@ -35,6 +37,8 @@ Key modules
 - `tailorcv/app/`: Pipeline orchestration for end-to-end generation.
 - `tailorcv/llm/`: LLM contracts, runtime config resolution, provider router.
 - `tailorcv/llm/providers/`: Concrete provider implementations (OpenAI first).
+- `tailorcv/llm/selection_prompt.py`: Provider-agnostic prompt payload builder.
+- `tailorcv/llm/selector.py`: Selection generation service + retry loop.
 - `tailorcv/defaults/`: One-page-biased defaults for design/locale/settings.
 - `tailorcv/assemblers/`: Assemble full RenderCV documents with overrides.
 - `tailorcv/config/`: Persistent config + secret helpers (keyring/env).

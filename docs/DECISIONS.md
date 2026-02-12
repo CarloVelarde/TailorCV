@@ -106,3 +106,22 @@ OpenAI provider loading behavior
   - Importing TailorCV modules should not fail in environments where `openai`
     is not installed yet.
   - Enables deterministic provider tests with injected fake clients.
+
+Selection generation service seam
+---------------------------------
+- Added a dedicated selector service (`tailorcv/llm/selector.py`) instead of
+  embedding LLM calls directly into CLI commands.
+- Rationale:
+  - Preserves clean separation between UX/IO (`cli/`) and generation behavior (`llm/`).
+  - Creates a reusable entrypoint for both CLI and potential API integrations.
+  - Keeps retry/error handling testable without invoking CLI.
+
+Prompt-builder + retry feedback loop
+------------------------------------
+- Added provider-agnostic prompt construction in `tailorcv/llm/selection_prompt.py`.
+- Selector retries are bounded (`max_attempts`) and feed prior validation/provider
+  errors into subsequent attempts.
+- Rationale:
+  - Keeps prompt content explicit and inspectable.
+  - Uses strict validator output as direct correction signals for the next attempt.
+  - Avoids infinite loops and provides deterministic failure reporting.
